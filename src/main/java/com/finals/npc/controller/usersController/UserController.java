@@ -45,11 +45,21 @@ public class UserController {
         String motherName = request.getMothername();
         // Generate random birth_id
         String birthId = randomNumberGenerator.generateRandomNumber(5);
+        String birthstatus = "pending";
         System.out.println(birthId);
 
 
 
-        Users updatedUser = userService.updateBirthDetails(nin, childName, birthDate, gender, placeOfBirth, fatherName, motherName, birthId);
+        Users updatedUser = userService.updateBirthDetails(nin,
+                childName,
+                birthDate,
+                gender,
+                placeOfBirth,
+                fatherName,
+                motherName,
+                birthId,
+                birthstatus
+        );
 
         updatedUser.setBirthid(birthId);
 

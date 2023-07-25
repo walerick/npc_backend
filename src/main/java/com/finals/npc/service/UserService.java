@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
@@ -44,7 +45,17 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public Users updateBirthDetails(String nin, String childname, Date birthdate, String gender, String placeofbirth, String fathername, String mothername, String birthid) {
+    public Users updateBirthDetails(String nin,
+                                    String childname,
+                                    Date birthdate,
+                                    String gender,
+                                    String placeofbirth,
+                                    String fathername,
+                                    String mothername,
+                                    String birthid,
+                                    String birthstatus
+
+    ) {
         Optional<Users> userOptional = userRepo.findUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
@@ -56,6 +67,7 @@ public class UserService {
             user.setFathername(fathername);
             user.setMothername(mothername);
             user.setBirthid(birthid);
+            user.setBirthstatus(birthstatus);
             return userRepo.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -77,6 +89,14 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
+    @Transactional
+    public void updateUserBirthStatus(String nin, String status){
+        Optional<Users>  user = getUsersByNin(nin);
+        Users users = userRepo.findById(user.get().getUser_id())
+                .orElseThrow(() -> new IllegalStateException("user not found"));
+        users.setBirthstatus(status);
+    }
+
 
 
 }

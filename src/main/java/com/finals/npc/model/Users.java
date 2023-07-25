@@ -19,6 +19,15 @@ public class Users {
     private String nin;
     @Column
     private String password;
+    @Column
+    private String birthstatus;
+    @Column
+    private String deathstatus;
+    @Column
+    private String attestationstatus;
+
+
+
 
     @Column
     private String childname;
