@@ -3,6 +3,7 @@ package com.finals.npc.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -33,6 +34,8 @@ public class Users {
     private String childname;
 
     @Column
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date birthdate;
 
     @Column
@@ -57,6 +60,8 @@ public class Users {
     @Column
     private int attestage;
     @Column
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date attestdate;
     @Column
     private String attestlg;
