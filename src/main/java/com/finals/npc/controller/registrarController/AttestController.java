@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -40,6 +43,25 @@ public class AttestController {
 
         return ResponseEntity.ok(updatedUser);
     }
+
+    @GetMapping("/attestid")
+    public ResponseEntity<Map<String,Object>> getAttestLetter(
+            @RequestParam String attest_id) {
+        Optional<Users> userOptional = userService.getUserByAttestid(attest_id);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            Map<String, Object> attestDetails = new HashMap<>();
+            attestDetails.put("attestId", user.getAttestid());
+            attestDetails.put("attestName", user.getAttestname());
+            attestDetails.put("attestAge", user.getAttestage());
+            attestDetails.put("attestDate", user.getAttestdate());
+            attestDetails.put("attestLg", user.getAttestlg());
+            return ResponseEntity.ok(attestDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
 }

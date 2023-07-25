@@ -36,6 +36,10 @@ public class UserService {
         return userRepo.findUsersByBirthid(birthid);
     }
 
+    public Optional<Users> getUserByAttestid(String attestid) {
+        return userRepo.findUsersByAttestid(attestid);
+    }
+
     public Users saveUser(Users user) {
         return userRepo.save(user);
     }
@@ -63,14 +67,16 @@ public class UserService {
         if (usersOptional.isPresent()){
             Users user = usersOptional.get();
             //Update the attest details
-            user.setAttest_name(attestName);
-            user.setAttest_age(age);
-            user.setAttest_date(attestDate);
-            user.setAttest_lg(attestLg);
-            user.setAttest_id(attestId);
+            user.setAttestname(attestName);
+            user.setAttestage(age);
+            user.setAttestdate(attestDate);
+            user.setAttestlg(attestLg);
+            user.setAttestid(attestId);
             return userRepo.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
+
+
 }

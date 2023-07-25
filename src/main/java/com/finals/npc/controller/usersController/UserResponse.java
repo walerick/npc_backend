@@ -8,5 +8,4 @@ import lombok.Data;
 public class UserResponse {
     private String nin;
     private String name;
-//    private Birth birth;
 }

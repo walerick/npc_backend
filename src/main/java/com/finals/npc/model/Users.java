@@ -42,13 +42,13 @@ public class Users {
 
 //    Attestation
     @Column
-    private String attest_id;
+    private String attestid;
     @Column
-    private String attest_name;
+    private String attestname;
     @Column
-    private int attest_age;
+    private int attestage;
     @Column
-    private Date attest_date;
+    private Date attestdate;
     @Column
-    private String attest_lg;
+    private String attestlg;
 }
