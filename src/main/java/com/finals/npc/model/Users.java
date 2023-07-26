@@ -52,6 +52,23 @@ public class Users {
     @Column
     private String birthid;
 
+//    Death registration
+
+    @Column
+    private String deathname;
+    @Column
+    private String deathgender;
+    @Column
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date dateatdeath;
+    @Column
+    private String placeofdeath;
+    @Column
+    private String deathid;
+
+
+
 //    Attestation
     @Column
     private String attestid;

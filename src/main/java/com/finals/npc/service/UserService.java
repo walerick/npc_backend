@@ -74,6 +74,31 @@ public class UserService {
         }
     }
 
+    public Users updateDeathDetails(String nin,
+                                    String deathname,
+                                    Date dateofdeath,
+                                    String deathgender,
+                                    String placeofdeath,
+                                    String deathid,
+                                    String deathstatus
+
+    ) {
+        Optional<Users> userOptional = userRepo.findUsersByNin(nin);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            // Update the death details
+            user.setDeathname(deathname);
+            user.setDateatdeath(dateofdeath);
+            user.setDeathgender(deathgender);
+            user.setPlaceofdeath(placeofdeath);
+            user.setDeathid(deathid);
+            user.setDeathstatus(deathstatus);
+            return userRepo.save(user);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+    }
+
     public Users updateAttestDetails(String nin, String attestName, int age, Date attestDate, String attestLg, String attestId) {
         Optional<Users> usersOptional = userRepo.findUsersByNin(nin);
         if (usersOptional.isPresent()){
@@ -95,6 +120,22 @@ public class UserService {
         Users users = userRepo.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
         users.setBirthstatus(status);
+    }
+
+    @Transactional
+    public void updateUserDeathStatus(String nin, String status){
+        Optional<Users>  user = getUsersByNin(nin);
+        Users users = userRepo.findById(user.get().getUser_id())
+                .orElseThrow(() -> new IllegalStateException("user not found"));
+        users.setDeathstatus(status);
+    }
+
+    @Transactional
+    public void updateUserAttestStatus(String nin, String status){
+        Optional<Users>  user = getUsersByNin(nin);
+        Users users = userRepo.findById(user.get().getUser_id())
+                .orElseThrow(() -> new IllegalStateException("user not found"));
+        users.setAttestationstatus(status);
     }
 
 

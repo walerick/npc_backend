@@ -1,6 +1,7 @@
 package com.finals.npc.controller.usersController;
 
 import com.finals.npc.model.Users;
+import com.finals.npc.repository.UserRepo;
 import com.finals.npc.service.RandomNumberGenerator;
 import com.finals.npc.service.UserService;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UserController {
     private final UserService userService;
     private final RandomNumberGenerator randomNumberGenerator;
+    private final UserRepo userRepo;
     @CrossOrigin
     @PostMapping("register")
     public void registerNewUser(@RequestBody Users user){
@@ -30,6 +32,11 @@ public class UserController {
     @GetMapping
     public List<Users> Users(){
        return userService.getUser();
+    }
+
+    @GetMapping("get-by-nin/{nin}")
+    public Users getUserByNin(@PathVariable String nin) {
+        return userRepo.findUsersByNin(nin).orElse(null);
     }
 
     @PutMapping("birth/{nin}")
@@ -62,6 +69,37 @@ public class UserController {
         );
 
         updatedUser.setBirthid(birthId);
+
+        return ResponseEntity.ok(updatedUser);
+
+    }
+
+    @PutMapping("death/{nin}")
+    public ResponseEntity<Users> updateDeathDetail(
+            @PathVariable("nin") String nin,
+            @RequestBody DeathRegistrationRequest request
+    ){
+        String deathName = request.getDeathname();
+        Date deathDate = request.getDateofdeath();
+        String deathgender = request.getDeathgender();
+        String placeOfDeath = request.getPlaceofdeath();
+        // Generate random birth_id
+        String deathId = randomNumberGenerator.generateRandomNumber(5);
+        String deathstatus = "pending";
+        System.out.println(deathId);
+
+
+
+        Users updatedUser = userService.updateDeathDetails(nin,
+                deathName,
+                deathDate,
+                deathgender,
+                placeOfDeath,
+                deathId,
+                deathstatus
+        );
+
+        updatedUser.setBirthid(deathId);
 
         return ResponseEntity.ok(updatedUser);
 

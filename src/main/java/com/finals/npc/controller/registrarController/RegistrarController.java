@@ -68,6 +68,32 @@ public class RegistrarController {
     }
 
 
+    @GetMapping("/view-death")
+    public List<Users> viewDeath() {
+        List<Users> users = userService.getUser();
+        Stream<Users> usersStream =  users.stream().filter(x-> x.getDeathid() != null);
+        return usersStream.toList();
+    }
+
+    @PutMapping("/view-death/approve/{nin}")
+    public ResponseEntity<BasicResponse> approveDeath(@PathVariable("nin") String nin){
+        userService.updateUserDeathStatus(nin, "approved");
+        return ResponseEntity.ok(new BasicResponse("Success"));
+    }
+
+    @PutMapping("/view-death/decline/{nin}")
+    public ResponseEntity<BasicResponse> declineDeath(@PathVariable("nin") String nin){
+        userService.updateUserBirthStatus(nin, "declined");
+        return ResponseEntity.ok(new BasicResponse("Success"));
+    }
+
+
+
+
+
+
+
+
 
 }
 

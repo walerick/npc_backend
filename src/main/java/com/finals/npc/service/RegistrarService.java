@@ -1,6 +1,8 @@
 package com.finals.npc.service;
 
+import com.finals.npc.model.ExternalRegistrar;
 import com.finals.npc.model.Registrar;
+import com.finals.npc.repository.ExternalRegistrarRepo;
 import com.finals.npc.repository.RegistrarRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,3 +30,5 @@ public class RegistrarService {
         return registrarRepository.findRegistrarByUsername(username);
     }
 }
+
+
