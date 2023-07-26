@@ -22,10 +22,21 @@ public class UserController {
     private final UserService userService;
     private final RandomNumberGenerator randomNumberGenerator;
     private final UserRepo userRepo;
-    @CrossOrigin
+//    @CrossOrigin
+//    @PostMapping("register")
+//    public void registerNewUser(@RequestBody Users user){
+//        userService.addNewUser(user);
+//    }
+
     @PostMapping("register")
-    public void registerNewUser(@RequestBody Users user){
+    public ResponseEntity<String> registerNewUser(@RequestBody Users user){
+        boolean ninExists = userService.checkIfNinExists(user.getNin());
+
+        if(ninExists){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with the same NIN already exists.");
+        }
         userService.addNewUser(user);
+        return ResponseEntity.ok("User registered Successfully");
     }
 
 
@@ -119,6 +130,11 @@ public class UserController {
             birthDetails.put("placeofbirth", user.getPlaceofbirth());
             birthDetails.put("fathername", user.getFathername());
             birthDetails.put("mothername", user.getMothername());
+            birthDetails.put("attestid", user.getAttestid());
+            birthDetails.put("attestname", user.getAttestname());
+            birthDetails.put("attestdate", user.getAttestdate());
+            birthDetails.put("attestage", user.getAttestage());
+            birthDetails.put("attestlg", user.getUser_id());
             return ResponseEntity.ok(birthDetails);
         } else {
             return ResponseEntity.notFound().build();

@@ -26,6 +26,9 @@ public class Users {
     private String deathstatus;
     @Column
     private String attestationstatus;
+    @Column
+    private String attestbystaffstatus;
+
 
 
 
