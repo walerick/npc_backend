@@ -67,6 +67,29 @@ public class RegistrarController {
         return ResponseEntity.ok(new BasicResponse("Success"));
     }
 
+    @GetMapping("/view-attest")
+    public List<Users> viewAgeAttest() {
+        List<Users> users = userService.getUser();
+        Stream<Users> usersStream =  users.stream().filter(x-> x.getAttestid() != null);
+        return usersStream.toList();
+    }
+
+    @PutMapping("/view-attest/approve/{nin}")
+    public ResponseEntity<BasicResponse> approveAgeAttest(@PathVariable("nin") String nin){
+        userService.updateAttestByStaffStatus(nin, "approved");
+        return ResponseEntity.ok(new BasicResponse("Success"));
+    }
+
+    @PutMapping("/view-attest/decline/{nin}")
+    public ResponseEntity<BasicResponse> declineAgeAttest(@PathVariable("nin") String nin){
+        userService.updateAttestByStaffStatus(nin, "declined");
+        return ResponseEntity.ok(new BasicResponse("Success"));
+    }
+
+
+
+
+
 
     @GetMapping("/view-death")
     public List<Users> viewDeath() {

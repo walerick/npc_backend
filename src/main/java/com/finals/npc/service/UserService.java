@@ -135,9 +135,22 @@ public class UserService {
         Optional<Users>  user = getUsersByNin(nin);
         Users users = userRepo.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setAttestationstatus(status);
+        users.setAttestbystaffstatus(status);
+    }
+
+    @Transactional
+    public void updateAttestByStaffStatus(String nin, String status){
+        Optional<Users>  user = getUsersByNin(nin);
+        Users users = userRepo.findById(user.get().getUser_id())
+                .orElseThrow(() -> new IllegalStateException("user not found"));
+        users.setAttestbystaffstatus(status);
     }
 
 
+    public boolean checkIfNinExists(String nin) {
+        Optional<Users> existingUser = userRepo.findUsersByNin(nin);
 
+        // If existingUser is not null, it means a user with the provided NIN already exists
+        return existingUser.isPresent();
+    }
 }
