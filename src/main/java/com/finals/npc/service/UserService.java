@@ -135,7 +135,7 @@ public class UserService {
         Optional<Users>  user = getUsersByNin(nin);
         Users users = userRepo.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setAttestbystaffstatus(status);
+        users.setAttestationstatus(status);
     }
 
     @Transactional
