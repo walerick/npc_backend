@@ -133,8 +133,7 @@ public class UserController {
             birthDetails.put("attestid", user.getAttestid());
             birthDetails.put("attestname", user.getAttestname());
             birthDetails.put("attestdate", user.getAttestdate());
-            birthDetails.put("attestage", user.getAttestage());
-            birthDetails.put("attestlg", user.getUser_id());
+            birthDetails.put("attestlg", user.getAttestlg());
             return ResponseEntity.ok(birthDetails);
         } else {
             return ResponseEntity.notFound().build();
