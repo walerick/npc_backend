@@ -99,16 +99,18 @@ public class UserService {
         }
     }
 
-    public Users updateAttestDetails(String nin, String attestName, int age, Date attestDate, String attestLg, String attestId) {
+    public Users updateAttestDetails(String nin, String attestname, int attestage, Date attestdate, String attestlg, String attestid, String attestationstatus, String attestationbystaffstatus) {
         Optional<Users> usersOptional = userRepo.findUsersByNin(nin);
         if (usersOptional.isPresent()){
             Users user = usersOptional.get();
             //Update the attest details
-            user.setAttestname(attestName);
-            user.setAttestage(age);
-            user.setAttestdate(attestDate);
-            user.setAttestlg(attestLg);
-            user.setAttestid(attestId);
+            user.setAttestname(attestname);
+            user.setAttestage(attestage);
+            user.setAttestdate(attestdate);
+            user.setAttestlg(attestlg);
+            user.setAttestid(attestid);
+            user.setAttestationstatus(attestationstatus);
+            user.setAttestbystaffstatus(attestationbystaffstatus);
             return userRepo.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");

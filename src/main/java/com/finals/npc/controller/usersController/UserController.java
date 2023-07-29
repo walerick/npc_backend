@@ -115,13 +115,48 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
 
     }
+// CONTROLLER TO INPUT ATTEST DETAILS
+    @PutMapping("attest/{nin}")
+    public ResponseEntity<Users> updateAttestDetail(
+            @PathVariable("nin") String nin,
+            @RequestBody AttestRegistrationRequest request
+    ){
+        String attestname = request.getAttestname();
+        int attestage = request.getAttestage();
+        Date attestdate = request.getAttestdate();
 
+        String attestlg = request.getAttestlg();
+
+        // Generate random birth_id
+        String attestid = randomNumberGenerator.generateRandomNumber(3);
+        String attestationstatus = "pending";
+        String attestationbystaffstatus = "pending";
+        System.out.println(attestid);
+
+
+        Users updatedUser = userService.updateAttestDetails(nin,
+                attestname,
+                attestage,
+                attestdate,
+                attestlg,
+                attestid,
+                attestationstatus,
+                attestationbystaffstatus
+        );
+
+        updatedUser.setAttestid(attestid);
+
+        return ResponseEntity.ok(updatedUser);
+
+    }
+//-------------------------------------
 
     @GetMapping("/birth-details")
     public ResponseEntity<Map<String,Object>> getUserBirthDetails(@RequestParam String nin) {
         Optional<Users> userOptional = userService.getUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
+            user.setAttestationstatus("pending");
             Map<String, Object> birthDetails = new HashMap<>();
             birthDetails.put("birthid", user.getBirthid());
             birthDetails.put("childname", user.getChildname());
@@ -134,6 +169,8 @@ public class UserController {
             birthDetails.put("attestname", user.getAttestname());
             birthDetails.put("attestdate", user.getAttestdate());
             birthDetails.put("attestlg", user.getAttestlg());
+            birthDetails.put("attestage", user.getAttestage());
+            birthDetails.put("attestationstatus", user.getAttestationstatus());
             return ResponseEntity.ok(birthDetails);
         } else {
             return ResponseEntity.notFound().build();
