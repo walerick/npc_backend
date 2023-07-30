@@ -12,147 +12,160 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-@Data
-@Service
-@AllArgsConstructor
-public class UserService {
-    private final UserRepo userRepo;
 
+@Data
+@AllArgsConstructor
+@Service
+public class UserService {
+    private final UserRepo userRepository;
+//REGISTER NEW USER SERVICE
     public void addNewUser(Users user) {
-        Optional<Users> userByNin =  userRepo.findUsersByNin(user.getNin());
-        if(userByNin.isPresent()){
+        Optional<Users> userByNin = userRepository.findUsersByNin(user.getNin());
+        if (userByNin.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NIN already exists");
         }
-        userRepo.save(user);
+        userRepository.save(user);
+        throw new ResponseStatusException(HttpStatus.CREATED, "Account Successfully Created.");
     }
 
-    public List<Users> getUser(){
-       return userRepo.findAll();
+
+//GET ALL USERS SERVICE
+    public List<Users> getUser() {
+        return userRepository.findAll();
     }
 
+//    GET USER BY NIN
     public Optional<Users> getUsersByNin(String nin) {
-        return userRepo.findUsersByNin(nin);
-    }
-    public Optional<Users> getUserByBirthid(String birthid){
-        return userRepo.findUsersByBirthid(birthid);
+        return userRepository.findUsersByNin(nin);
     }
 
-    public Optional<Users> getUserByAttestid(String attestid) {
-        return userRepo.findUsersByAttestid(attestid);
+// GET USER BY BIRTH-ID
+    public Optional<Users> getUserByBirthId(String birthId) {
+        return userRepository.findUsersByBirthId(birthId);
     }
 
-    public Users saveUser(Users user) {
-        return userRepo.save(user);
+//    GET USER BY ATTEST-ID
+    public Optional<Users> getUserByAttestId(String attestId) {
+        return userRepository.findUsersByAttestId(attestId);
     }
+
 
     public Users updateBirthDetails(String nin,
-                                    String childname,
-                                    Date birthdate,
+                                    String childName,
+                                    Date birthDate,
                                     String gender,
-                                    String placeofbirth,
-                                    String fathername,
-                                    String mothername,
-                                    String birthid,
-                                    String birthstatus
+                                    String placeOfBirth,
+                                    String fatherName,
+                                    String motherName,
+                                    String birthId,
+                                    String birthStatus
 
     ) {
-        Optional<Users> userOptional = userRepo.findUsersByNin(nin);
+        Optional<Users> userOptional = userRepository.findUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             // Update the birth details
-            user.setChildname(childname);
-            user.setBirthdate(birthdate);
+            user.setChildName(childName);
+            user.setBirthDate(birthDate);
             user.setGender(gender);
-            user.setPlaceofbirth(placeofbirth);
-            user.setFathername(fathername);
-            user.setMothername(mothername);
-            user.setBirthid(birthid);
-            user.setBirthstatus(birthstatus);
-            return userRepo.save(user);
+            user.setPlaceOfBirth(placeOfBirth);
+            user.setFatherName(fatherName);
+            user.setMotherName(motherName);
+            user.setBirthId(birthId);
+            user.setBirthStatus(birthStatus);
+            return userRepository.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
     public Users updateDeathDetails(String nin,
-                                    String deathname,
-                                    Date dateofdeath,
-                                    String deathgender,
-                                    String placeofdeath,
-                                    String deathid,
-                                    String deathstatus
+                                    String deathName,
+                                    Date dateOfDeath,
+                                    String deathGender,
+                                    String placeOfDeath,
+                                    String deathId,
+                                    String deathStatus
 
     ) {
-        Optional<Users> userOptional = userRepo.findUsersByNin(nin);
+        Optional<Users> userOptional = userRepository.findUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             // Update the death details
-            user.setDeathname(deathname);
-            user.setDateatdeath(dateofdeath);
-            user.setDeathgender(deathgender);
-            user.setPlaceofdeath(placeofdeath);
-            user.setDeathid(deathid);
-            user.setDeathstatus(deathstatus);
-            return userRepo.save(user);
+            user.setDeathName(deathName);
+            user.setDateAtDeath(dateOfDeath);
+            user.setDeathGender(deathGender);
+            user.setPlaceOfDeath(placeOfDeath);
+            user.setDeathId(deathId);
+            user.setDeathStatus(deathStatus);
+            return userRepository.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
-    public Users updateAttestDetails(String nin, String attestname, int attestage, Date attestdate, String attestlg, String attestid, String attestationstatus, String attestationbystaffstatus) {
-        Optional<Users> usersOptional = userRepo.findUsersByNin(nin);
-        if (usersOptional.isPresent()){
+    public Users updateAttestDetails(String nin,
+                                     String attestName,
+                                     int attestAge,
+                                     Date attestDate,
+                                     String attestLg,
+                                     String attestId,
+                                     String attestationStatus,
+                                     String attestationByStaffStatus) {
+        Optional<Users> usersOptional = userRepository.findUsersByNin(nin);
+        if (usersOptional.isPresent()) {
             Users user = usersOptional.get();
             //Update the attest details
-            user.setAttestname(attestname);
-            user.setAttestage(attestage);
-            user.setAttestdate(attestdate);
-            user.setAttestlg(attestlg);
-            user.setAttestid(attestid);
-            user.setAttestationstatus(attestationstatus);
-            user.setAttestbystaffstatus(attestationbystaffstatus);
-            return userRepo.save(user);
+            user.setAttestName(attestName);
+            user.setAttestAge(attestAge);
+            user.setAttestDate(attestDate);
+            user.setAttestLg(attestLg);
+            user.setAttestId(attestId);
+            user.setAttestationStatus(attestationStatus);
+            user.setAttestByStaffStatus(attestationByStaffStatus);
+            return userRepository.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
+
     @Transactional
-    public void updateUserBirthStatus(String nin, String status){
-        Optional<Users>  user = getUsersByNin(nin);
-        Users users = userRepo.findById(user.get().getUser_id())
+    public void updateUserBirthStatus(String nin, String status) {
+        Optional<Users> usersOptional = getUsersByNin(nin);
+        Users users = userRepository.findById(usersOptional.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setBirthstatus(status);
+        users.setBirthStatus(status);
     }
 
     @Transactional
-    public void updateUserDeathStatus(String nin, String status){
-        Optional<Users>  user = getUsersByNin(nin);
-        Users users = userRepo.findById(user.get().getUser_id())
+    public void updateUserDeathStatus(String nin, String status) {
+        Optional<Users> user = getUsersByNin(nin);
+        Users users = userRepository.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setDeathstatus(status);
+        users.setDeathStatus(status);
     }
 
     @Transactional
-    public void updateUserAttestStatus(String nin, String status){
-        Optional<Users>  user = getUsersByNin(nin);
-        Users users = userRepo.findById(user.get().getUser_id())
+    public void updateUserAttestStatus(String nin, String status) {
+        Optional<Users> user = getUsersByNin(nin);
+        Users users = userRepository.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setAttestationstatus(status);
+        users.setAttestationStatus(status);
     }
 
     @Transactional
-    public void updateAttestByStaffStatus(String nin, String status){
-        Optional<Users>  user = getUsersByNin(nin);
-        Users users = userRepo.findById(user.get().getUser_id())
+    public void updateAttestByStaffStatus(String nin, String status) {
+        Optional<Users> user = getUsersByNin(nin);
+        Users users = userRepository.findById(user.get().getUser_id())
                 .orElseThrow(() -> new IllegalStateException("user not found"));
-        users.setAttestbystaffstatus(status);
+        users.setAttestByStaffStatus(status);
     }
 
 
     public boolean checkIfNinExists(String nin) {
-        Optional<Users> existingUser = userRepo.findUsersByNin(nin);
+        Optional<Users> existingUser = userRepository.findUsersByNin(nin);
 
-        // If existingUser is not null, it means a user with the provided NIN already exists
+        // If existing User is not null, it means a user with the provided NIN already exists
         return existingUser.isPresent();
     }
 }

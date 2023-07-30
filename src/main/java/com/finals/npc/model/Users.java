@@ -21,68 +21,63 @@ public class Users {
     @Column
     private String password;
     @Column
-    private String birthstatus;
-    @Column
-    private String deathstatus;
-    @Column
-    private String attestationstatus;
-    @Column
-    private String attestbystaffstatus;
-
-
-
-
-
-    @Column
-    private String childname;
-
+    private String childName;
     @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date birthdate;
+    private Date birthDate;
 
+    
+    
+//    BIRTH REGISTRATION
     @Column
     private String gender;
-
     @Column
-    private String placeofbirth;
-
+    private String placeOfBirth;
     @Column
-    private String fathername;
-
+    private String fatherName;
     @Column
-    private String mothername;
+    private String motherName;
     @Column
-    private String birthid;
+    private String birthId;
+    @Column
+    private String birthStatus;
+    
 
 //    Death registration
 
     @Column
-    private String deathname;
+    private String deathName;
     @Column
-    private String deathgender;
+    private String deathGender;
     @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date dateatdeath;
+    private Date dateAtDeath;
     @Column
-    private String placeofdeath;
+    private String placeOfDeath;
     @Column
-    private String deathid;
+    private String deathId;
+    @Column
+    private String deathStatus;
 
 
 
 //    Attestation
     @Column
-    private String attestid;
+    private String attestId;
     @Column
-    private String attestname;
+    private String attestName;
     @Column
-    private int attestage;
+    private int attestAge;
     @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date attestdate;
+    private Date attestDate;
     @Column
-    private String attestlg;
+    private String attestLg;
+    @Column
+    private String attestationStatus;
+    @Column
+    private String attestByStaffStatus;
 }

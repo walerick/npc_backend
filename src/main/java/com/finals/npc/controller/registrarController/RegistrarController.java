@@ -7,7 +7,6 @@ import com.finals.npc.service.BasicResponse;
 import com.finals.npc.service.RegistrarService;
 import com.finals.npc.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+//CONTROLLER FOR NPC STAFF
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/registrar")
@@ -25,8 +25,10 @@ public class RegistrarController {
     private final UserService userService;
     private final UserRepo userRepo;
 
+//    REGISTER STAFF/VISITOR
     @PostMapping("/register")
     public void addNewRegistrar(@RequestBody Registrar registrar) {
+
         registrarService.addNewRegistrar(registrar);
     }
 
@@ -48,38 +50,44 @@ public class RegistrarController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
+//    VIEW BIRTH REG REQUEST BY STAFF
     @GetMapping("/view-birth")
     public List<Users> viewBirth() {
         List<Users> users = userService.getUser();
-        Stream<Users> usersStream =  users.stream().filter(x-> x.getBirthid() != null);
+        Stream<Users> usersStream =  users.stream().filter(x-> x.getBirthId() != null);
         return usersStream.toList();
     }
 
+//    APPROVE BIRTH REG REQUEST BY STAFF
     @PutMapping("/view-birth/approve/{nin}")
     public ResponseEntity<BasicResponse> approveBirth(@PathVariable("nin") String nin){
         userService.updateUserBirthStatus(nin, "approved");
         return ResponseEntity.ok(new BasicResponse("Success"));
     }
 
+    //    APPROVE BIRTH REG REQUEST BY STAFF
     @PutMapping("/view-birth/decline/{nin}")
     public ResponseEntity<BasicResponse> declineBirth(@PathVariable("nin") String nin){
         userService.updateUserBirthStatus(nin, "declined");
         return ResponseEntity.ok(new BasicResponse("Success"));
     }
 
+//   VIEW ATTESTATION FROM STAFF
     @GetMapping("/view-attest")
     public List<Users> viewAgeAttest() {
         List<Users> users = userService.getUser();
-        Stream<Users> usersStream =  users.stream().filter(x-> x.getAttestid() != null);
+        Stream<Users> usersStream =  users.stream().filter(x-> x.getAttestId() != null);
         return usersStream.toList();
     }
 
+// APPROVE ATTESTATION BY STAFF
     @PutMapping("/view-attest/approve/{nin}")
     public ResponseEntity<BasicResponse> approveAgeAttest(@PathVariable("nin") String nin){
         userService.updateAttestByStaffStatus(nin, "approved");
         return ResponseEntity.ok(new BasicResponse("Success"));
     }
 
+// DECLINE ATTESTATION BY STAFF
     @PutMapping("/view-attest/decline/{nin}")
     public ResponseEntity<BasicResponse> declineAgeAttest(@PathVariable("nin") String nin){
         userService.updateAttestByStaffStatus(nin, "declined");
@@ -94,7 +102,7 @@ public class RegistrarController {
     @GetMapping("/view-death")
     public List<Users> viewDeath() {
         List<Users> users = userService.getUser();
-        Stream<Users> usersStream =  users.stream().filter(x-> x.getDeathid() != null);
+        Stream<Users> usersStream =  users.stream().filter(x-> x.getDeathId() != null);
         return usersStream.toList();
     }
 

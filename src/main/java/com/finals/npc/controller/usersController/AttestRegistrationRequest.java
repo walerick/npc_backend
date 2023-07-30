@@ -8,9 +8,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class AttestRegistrationRequest {
-    private String attestname;
-    private int attestage;
-    private Date attestdate;
-    private String attestlg;
-    private String attestid;
+    private String attestName;
+    private int attestAge;
+    private Date attestDate;
+    private String attestLg;
+    private String attestId;
 }

@@ -8,9 +8,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class DeathRegistrationRequest {
-    private String deathname;
-    private String deathgender;
-    private Date dateofdeath;
-    private String placeofdeath;
-    private String deathid;
+    private String deathName;
+    private String deathGender;
+    private Date dateOfDeath;
+    private String placeOfDeath;
+    private String deathId;
 }

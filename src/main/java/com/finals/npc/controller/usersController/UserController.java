@@ -5,13 +5,10 @@ import com.finals.npc.repository.UserRepo;
 import com.finals.npc.service.RandomNumberGenerator;
 import com.finals.npc.service.UserService;
 import lombok.AllArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
-
 import org.springframework.web.bind.annotation.GetMapping;
 
 @CrossOrigin
@@ -22,12 +19,8 @@ public class UserController {
     private final UserService userService;
     private final RandomNumberGenerator randomNumberGenerator;
     private final UserRepo userRepo;
-//    @CrossOrigin
-//    @PostMapping("register")
-//    public void registerNewUser(@RequestBody Users user){
-//        userService.addNewUser(user);
-//    }
 
+//    REGISTRATION  OF USERS
     @PostMapping("register")
     public ResponseEntity<String> registerNewUser(@RequestBody Users user){
         boolean ninExists = userService.checkIfNinExists(user.getNin());
@@ -39,12 +32,13 @@ public class UserController {
         return ResponseEntity.ok("User registered Successfully");
     }
 
-
+// GET ALL USERS DETAILS
     @GetMapping
     public List<Users> Users(){
        return userService.getUser();
     }
 
+//    GET USER DETAIL BY NIN
     @GetMapping("get-by-nin/{nin}")
     public Users getUserByNin(@PathVariable String nin) {
         return userRepo.findUsersByNin(nin).orElse(null);
@@ -55,15 +49,15 @@ public class UserController {
             @PathVariable("nin") String nin,
             @RequestBody BirthRegistrationRequest request
     ){
-        String childName = request.getChildname();
-        Date birthDate = request.getBirthdate();
+        String childName = request.getChildName();
+        Date birthDate = request.getBirthDate();
         String gender = request.getGender();
-        String placeOfBirth = request.getPlaceofbirth();
-        String fatherName = request.getFathername();
-        String motherName = request.getMothername();
+        String placeOfBirth = request.getPlaceOfBirth();
+        String fatherName = request.getFatherName();
+        String motherName = request.getMotherName();
         // Generate random birth_id
         String birthId = randomNumberGenerator.generateRandomNumber(5);
-        String birthstatus = "pending";
+        String birthStatus = "pending";
         System.out.println(birthId);
 
 
@@ -76,10 +70,10 @@ public class UserController {
                 fatherName,
                 motherName,
                 birthId,
-                birthstatus
+                birthStatus
         );
 
-        updatedUser.setBirthid(birthId);
+        updatedUser.setBirthId(birthId);
 
         return ResponseEntity.ok(updatedUser);
 
@@ -90,13 +84,13 @@ public class UserController {
             @PathVariable("nin") String nin,
             @RequestBody DeathRegistrationRequest request
     ){
-        String deathName = request.getDeathname();
-        Date deathDate = request.getDateofdeath();
-        String deathgender = request.getDeathgender();
-        String placeOfDeath = request.getPlaceofdeath();
+        String deathName = request.getDeathName();
+        Date deathDate = request.getDateOfDeath();
+        String deathGender = request.getDeathGender();
+        String placeOfDeath = request.getPlaceOfDeath();
         // Generate random birth_id
         String deathId = randomNumberGenerator.generateRandomNumber(5);
-        String deathstatus = "pending";
+        String deathStatus = "pending";
         System.out.println(deathId);
 
 
@@ -104,13 +98,13 @@ public class UserController {
         Users updatedUser = userService.updateDeathDetails(nin,
                 deathName,
                 deathDate,
-                deathgender,
+                deathGender,
                 placeOfDeath,
                 deathId,
-                deathstatus
+                deathStatus
         );
 
-        updatedUser.setBirthid(deathId);
+        updatedUser.setBirthId(deathId);
 
         return ResponseEntity.ok(updatedUser);
 
@@ -121,30 +115,30 @@ public class UserController {
             @PathVariable("nin") String nin,
             @RequestBody AttestRegistrationRequest request
     ){
-        String attestname = request.getAttestname();
-        int attestage = request.getAttestage();
-        Date attestdate = request.getAttestdate();
+        String attestName = request.getAttestName();
+        int attestAge = request.getAttestAge();
+        Date attestDate = request.getAttestDate();
 
-        String attestlg = request.getAttestlg();
+        String attestLg = request.getAttestLg();
 
         // Generate random birth_id
-        String attestid = randomNumberGenerator.generateRandomNumber(3);
-        String attestationstatus = "pending";
-        String attestationbystaffstatus = "pending";
-        System.out.println(attestid);
+        String attestId = randomNumberGenerator.generateRandomNumber(3);
+        String attestationStatus = "pending";
+        String attestationByStaffStatus = "pending";
+        System.out.println(attestId);
 
 
         Users updatedUser = userService.updateAttestDetails(nin,
-                attestname,
-                attestage,
-                attestdate,
-                attestlg,
-                attestid,
-                attestationstatus,
-                attestationbystaffstatus
+                attestName,
+                attestAge,
+                attestDate,
+                attestLg,
+                attestId,
+                attestationStatus,
+                attestationByStaffStatus
         );
 
-        updatedUser.setAttestid(attestid);
+        updatedUser.setAttestId(attestId);
 
         return ResponseEntity.ok(updatedUser);
 
@@ -156,21 +150,21 @@ public class UserController {
         Optional<Users> userOptional = userService.getUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
-            user.setAttestationstatus("pending");
+            user.setAttestationStatus("pending");
             Map<String, Object> birthDetails = new HashMap<>();
-            birthDetails.put("birthid", user.getBirthid());
-            birthDetails.put("childname", user.getChildname());
-            birthDetails.put("birthdate", user.getBirthdate());
+            birthDetails.put("birthId", user.getBirthId());
+            birthDetails.put("childName", user.getChildName());
+            birthDetails.put("birthDate", user.getBirthDate());
             birthDetails.put("gender", user.getGender());
-            birthDetails.put("placeofbirth", user.getPlaceofbirth());
-            birthDetails.put("fathername", user.getFathername());
-            birthDetails.put("mothername", user.getMothername());
-            birthDetails.put("attestid", user.getAttestid());
-            birthDetails.put("attestname", user.getAttestname());
-            birthDetails.put("attestdate", user.getAttestdate());
-            birthDetails.put("attestlg", user.getAttestlg());
-            birthDetails.put("attestage", user.getAttestage());
-            birthDetails.put("attestationstatus", user.getAttestationstatus());
+            birthDetails.put("placeOfBirth", user.getPlaceOfBirth());
+            birthDetails.put("fatherName", user.getFatherName());
+            birthDetails.put("motherName", user.getMotherName());
+            birthDetails.put("attestId", user.getAttestId());
+            birthDetails.put("attestName", user.getAttestName());
+            birthDetails.put("attestDate", user.getAttestDate());
+            birthDetails.put("attestLg", user.getAttestLg());
+            birthDetails.put("attestAge", user.getAttestAge());
+            birthDetails.put("attestationStatus", user.getAttestationStatus());
             return ResponseEntity.ok(birthDetails);
         } else {
             return ResponseEntity.notFound().build();
@@ -178,18 +172,18 @@ public class UserController {
     }
 
     @GetMapping("/birth-by-id")
-    public ResponseEntity<Map<String,Object>> getUserBirthCert(@RequestParam String birthid) {
-        Optional<Users> userOptional = userService.getUserByBirthid(birthid);
+    public ResponseEntity<Map<String,Object>> getUserBirthCert(@RequestParam String birthId) {
+        Optional<Users> userOptional = userService.getUserByBirthId(birthId);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             Map<String, Object> birthDetails = new HashMap<>();
-            birthDetails.put("birthid", user.getBirthid());
-            birthDetails.put("childname", user.getChildname());
-            birthDetails.put("birthdate", user.getBirthdate());
+            birthDetails.put("birthId", user.getBirthId());
+            birthDetails.put("childName", user.getChildName());
+            birthDetails.put("birthDate", user.getBirthDate());
             birthDetails.put("gender", user.getGender());
-            birthDetails.put("placeofbirth", user.getPlaceofbirth());
-            birthDetails.put("fathername", user.getFathername());
-            birthDetails.put("mothername", user.getMothername());
+            birthDetails.put("placeOfBirth", user.getPlaceOfBirth());
+            birthDetails.put("fatherName", user.getFatherName());
+            birthDetails.put("motherName", user.getMotherName());
             return ResponseEntity.ok(birthDetails);
         } else {
             return ResponseEntity.notFound().build();

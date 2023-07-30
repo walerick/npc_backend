@@ -19,8 +19,8 @@ import java.util.Optional;
 public class RegistrarService {
     private final RegistrarRepository registrarRepository;
     public void addNewRegistrar(Registrar registrar){
-        Optional<Registrar> registrarById = registrarRepository.findRegistrarById(registrar.getId());
-        if (registrarById.isPresent()){
+        Optional<Registrar> registrarByUsername = registrarRepository.findRegistrarByUsername(registrar.getUsername());
+        if (registrarByUsername.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account already exist.");
         }
         registrarRepository.save(registrar);
