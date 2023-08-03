@@ -150,7 +150,7 @@ public class UserController {
         Optional<Users> userOptional = userService.getUsersByNin(nin);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
-            user.setAttestationStatus("pending");
+            user.setBirthStatus("pending");
             Map<String, Object> birthDetails = new HashMap<>();
             birthDetails.put("birthId", user.getBirthId());
             birthDetails.put("childName", user.getChildName());
@@ -164,8 +164,50 @@ public class UserController {
             birthDetails.put("attestDate", user.getAttestDate());
             birthDetails.put("attestLg", user.getAttestLg());
             birthDetails.put("attestAge", user.getAttestAge());
-            birthDetails.put("attestationStatus", user.getAttestationStatus());
+            birthDetails.put("birthStatus", user.getBirthStatus());
             return ResponseEntity.ok(birthDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/attest-details")
+    public ResponseEntity<Map<String,Object>> getUserAttestDetails(@RequestParam String nin) {
+        Optional<Users> userOptional = userService.getUsersByNin(nin);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            user.setAttestationStatus("pending");
+            Map<String, Object> attestDetails = new HashMap<>();
+            attestDetails.put("attestId", user.getAttestId());
+            attestDetails.put("attestName", user.getAttestName());
+            attestDetails.put("attestDate", user.getAttestDate());
+            attestDetails.put("attestLg", user.getAttestLg());
+            attestDetails.put("attestAge", user.getAttestAge());
+            attestDetails.put("attestationStatus", user.getAttestationStatus());
+            return ResponseEntity.ok(attestDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
+
+
+    @GetMapping("/death-details")
+    public ResponseEntity<Map<String,Object>> getUserDeathDetails(@RequestParam String nin) {
+        Optional<Users> userOptional = userService.getUsersByNin(nin);
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            user.setDeathStatus("pending");
+            Map<String, Object> deathDetails = new HashMap<>();
+            deathDetails.put("deathId", user.getDeathId());
+            deathDetails.put("deathName", user.getDeathName());
+            deathDetails.put("deathGender", user.getDeathGender());
+            deathDetails.put("dateOfDeath", user.getDateAtDeath());
+            deathDetails.put("placeOfDeath", user.getPlaceOfDeath());
+            deathDetails.put("deathStatus", user.getDeathStatus());
+            return ResponseEntity.ok(deathDetails);
         } else {
             return ResponseEntity.notFound().build();
         }
