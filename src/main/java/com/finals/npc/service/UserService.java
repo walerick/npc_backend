@@ -106,7 +106,7 @@ public class UserService {
 
     public Users updateAttestDetails(String nin,
                                      String attestName,
-                                     int attestAge,
+//                                     int attestAge,
                                      Date attestDate,
                                      String attestLg,
                                      String attestId,
@@ -117,7 +117,7 @@ public class UserService {
             Users user = usersOptional.get();
             //Update the attest details
             user.setAttestName(attestName);
-            user.setAttestAge(attestAge);
+//            user.setAttestAge(attestAge);
             user.setAttestDate(attestDate);
             user.setAttestLg(attestLg);
             user.setAttestId(attestId);

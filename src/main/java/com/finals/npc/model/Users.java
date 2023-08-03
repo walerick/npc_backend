@@ -68,8 +68,8 @@ public class Users {
     private String attestId;
     @Column
     private String attestName;
-    @Column
-    private int attestAge;
+//    @Column
+//    private int attestAge;
     @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd-MM-yyyy")

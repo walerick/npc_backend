@@ -116,7 +116,7 @@ public class UserController {
             @RequestBody AttestRegistrationRequest request
     ){
         String attestName = request.getAttestName();
-        int attestAge = request.getAttestAge();
+//        int attestAge = request.getAttestAge();
         Date attestDate = request.getAttestDate();
 
         String attestLg = request.getAttestLg();
@@ -130,7 +130,7 @@ public class UserController {
 
         Users updatedUser = userService.updateAttestDetails(nin,
                 attestName,
-                attestAge,
+//                attestAge,
                 attestDate,
                 attestLg,
                 attestId,
@@ -159,11 +159,11 @@ public class UserController {
             birthDetails.put("placeOfBirth", user.getPlaceOfBirth());
             birthDetails.put("fatherName", user.getFatherName());
             birthDetails.put("motherName", user.getMotherName());
-            birthDetails.put("attestId", user.getAttestId());
-            birthDetails.put("attestName", user.getAttestName());
-            birthDetails.put("attestDate", user.getAttestDate());
-            birthDetails.put("attestLg", user.getAttestLg());
-            birthDetails.put("attestAge", user.getAttestAge());
+//            birthDetails.put("attestId", user.getAttestId());
+//            birthDetails.put("attestName", user.getAttestName());
+//            birthDetails.put("attestDate", user.getAttestDate());
+//            birthDetails.put("attestLg", user.getAttestLg());
+//            birthDetails.put("attestAge", user.getAttestAge());
             birthDetails.put("birthStatus", user.getBirthStatus());
             return ResponseEntity.ok(birthDetails);
         } else {
@@ -182,7 +182,7 @@ public class UserController {
             attestDetails.put("attestName", user.getAttestName());
             attestDetails.put("attestDate", user.getAttestDate());
             attestDetails.put("attestLg", user.getAttestLg());
-            attestDetails.put("attestAge", user.getAttestAge());
+//            attestDetails.put("attestAge", user.getAttestAge());
             attestDetails.put("attestationStatus", user.getAttestationStatus());
             return ResponseEntity.ok(attestDetails);
         } else {

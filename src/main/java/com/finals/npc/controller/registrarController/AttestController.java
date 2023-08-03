@@ -27,7 +27,7 @@ public class AttestController {
             Map<String, Object> attestDetails = new HashMap<>();
             attestDetails.put("attestId", user.getAttestId());
             attestDetails.put("attestName", user.getAttestName());
-            attestDetails.put("attestAge", user.getAttestAge());
+//            attestDetails.put("attestAge", user.getAttestAge());
             attestDetails.put("attestDate", user.getAttestDate());
             attestDetails.put("attestLg", user.getAttestLg());
             return ResponseEntity.ok(attestDetails);
