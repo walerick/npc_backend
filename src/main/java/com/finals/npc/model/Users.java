@@ -39,6 +39,8 @@ public class Users {
     @Column
     private String motherName;
     @Column
+    private String stateOfOrigin;
+    @Column
     private String birthId;
     @Column
     private String birthStatus;
@@ -56,6 +58,10 @@ public class Users {
     private Date dateAtDeath;
     @Column
     private String placeOfDeath;
+    @Column
+    private String deathFather;
+    @Column
+    private String deathMother;
     @Column
     private String deathId;
     @Column

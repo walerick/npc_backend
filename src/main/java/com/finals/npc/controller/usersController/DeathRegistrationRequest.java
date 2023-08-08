@@ -10,7 +10,11 @@ import java.util.Date;
 public class DeathRegistrationRequest {
     private String deathName;
     private String deathGender;
-    private Date dateOfDeath;
+    private Date dateAtDeath;
     private String placeOfDeath;
+    private String stateOfOrigin;
+    private String deathFather;
+    private String deathMother;
     private String deathId;
 }
+

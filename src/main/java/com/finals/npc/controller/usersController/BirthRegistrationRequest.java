@@ -11,6 +11,7 @@ public class BirthRegistrationRequest {
     private Date birthDate;
     private String gender;
     private String placeOfBirth;
+    private String stateOfOrigin;
     private String fatherName;
     private String motherName;
     private String birthId;

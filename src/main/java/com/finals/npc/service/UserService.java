@@ -55,6 +55,7 @@ public class UserService {
                                     Date birthDate,
                                     String gender,
                                     String placeOfBirth,
+                                    String stateOfOrigin,
                                     String fatherName,
                                     String motherName,
                                     String birthId,
@@ -69,6 +70,7 @@ public class UserService {
             user.setBirthDate(birthDate);
             user.setGender(gender);
             user.setPlaceOfBirth(placeOfBirth);
+            user.setStateOfOrigin(stateOfOrigin);
             user.setFatherName(fatherName);
             user.setMotherName(motherName);
             user.setBirthId(birthId);
@@ -81,9 +83,12 @@ public class UserService {
 
     public Users updateDeathDetails(String nin,
                                     String deathName,
-                                    Date dateOfDeath,
+                                    Date dateAtDeath,
                                     String deathGender,
                                     String placeOfDeath,
+                                    String stateOfOrigin,
+                                    String deathFather,
+                                    String deathMother,
                                     String deathId,
                                     String deathStatus
 
@@ -93,9 +98,12 @@ public class UserService {
             Users user = userOptional.get();
             // Update the death details
             user.setDeathName(deathName);
-            user.setDateAtDeath(dateOfDeath);
+            user.setDateAtDeath(dateAtDeath);
             user.setDeathGender(deathGender);
             user.setPlaceOfDeath(placeOfDeath);
+            user.setStateOfOrigin(stateOfOrigin);
+            user.setDeathFather(deathFather);
+            user.setDeathMother(deathMother);
             user.setDeathId(deathId);
             user.setDeathStatus(deathStatus);
             return userRepository.save(user);
@@ -106,7 +114,6 @@ public class UserService {
 
     public Users updateAttestDetails(String nin,
                                      String attestName,
-//                                     int attestAge,
                                      Date attestDate,
                                      String attestLg,
                                      String attestId,

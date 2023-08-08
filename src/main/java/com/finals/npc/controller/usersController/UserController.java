@@ -53,6 +53,7 @@ public class UserController {
         Date birthDate = request.getBirthDate();
         String gender = request.getGender();
         String placeOfBirth = request.getPlaceOfBirth();
+        String stateOfOrigin = request.getStateOfOrigin();
         String fatherName = request.getFatherName();
         String motherName = request.getMotherName();
         // Generate random birth_id
@@ -67,6 +68,7 @@ public class UserController {
                 birthDate,
                 gender,
                 placeOfBirth,
+                stateOfOrigin,
                 fatherName,
                 motherName,
                 birthId,
@@ -85,9 +87,12 @@ public class UserController {
             @RequestBody DeathRegistrationRequest request
     ){
         String deathName = request.getDeathName();
-        Date deathDate = request.getDateOfDeath();
+        Date dateAtDeath = request.getDateAtDeath();
         String deathGender = request.getDeathGender();
         String placeOfDeath = request.getPlaceOfDeath();
+        String stateOfOrigin = request.getStateOfOrigin();
+        String deathFather = request.getDeathFather();
+        String deathMother = request.getDeathMother();
         // Generate random birth_id
         String deathId = randomNumberGenerator.generateRandomNumber(5);
         String deathStatus = "pending";
@@ -97,14 +102,17 @@ public class UserController {
 
         Users updatedUser = userService.updateDeathDetails(nin,
                 deathName,
-                deathDate,
+                dateAtDeath,
                 deathGender,
                 placeOfDeath,
+                stateOfOrigin,
+                deathFather,
+                deathMother,
                 deathId,
                 deathStatus
         );
 
-        updatedUser.setBirthId(deathId);
+        updatedUser.setDeathId(deathId);
 
         return ResponseEntity.ok(updatedUser);
 
@@ -157,13 +165,9 @@ public class UserController {
             birthDetails.put("birthDate", user.getBirthDate());
             birthDetails.put("gender", user.getGender());
             birthDetails.put("placeOfBirth", user.getPlaceOfBirth());
+            birthDetails.put("stateOfOrigin", user.getStateOfOrigin());
             birthDetails.put("fatherName", user.getFatherName());
             birthDetails.put("motherName", user.getMotherName());
-//            birthDetails.put("attestId", user.getAttestId());
-//            birthDetails.put("attestName", user.getAttestName());
-//            birthDetails.put("attestDate", user.getAttestDate());
-//            birthDetails.put("attestLg", user.getAttestLg());
-//            birthDetails.put("attestAge", user.getAttestAge());
             birthDetails.put("birthStatus", user.getBirthStatus());
             return ResponseEntity.ok(birthDetails);
         } else {
@@ -182,7 +186,7 @@ public class UserController {
             attestDetails.put("attestName", user.getAttestName());
             attestDetails.put("attestDate", user.getAttestDate());
             attestDetails.put("attestLg", user.getAttestLg());
-//            attestDetails.put("attestAge", user.getAttestAge());
+            attestDetails.put("stateOfOrigin", user.getStateOfOrigin());
             attestDetails.put("attestationStatus", user.getAttestationStatus());
             return ResponseEntity.ok(attestDetails);
         } else {
@@ -204,8 +208,11 @@ public class UserController {
             deathDetails.put("deathId", user.getDeathId());
             deathDetails.put("deathName", user.getDeathName());
             deathDetails.put("deathGender", user.getDeathGender());
-            deathDetails.put("dateOfDeath", user.getDateAtDeath());
+            deathDetails.put("dateAtDeath", user.getDateAtDeath());
             deathDetails.put("placeOfDeath", user.getPlaceOfDeath());
+            deathDetails.put("stateOfOrigin", user.getStateOfOrigin());
+            deathDetails.put("deathFather", user.getDeathFather());
+            deathDetails.put("deathMother", user.getDeathMother());
             deathDetails.put("deathStatus", user.getDeathStatus());
             return ResponseEntity.ok(deathDetails);
         } else {
@@ -224,6 +231,7 @@ public class UserController {
             birthDetails.put("birthDate", user.getBirthDate());
             birthDetails.put("gender", user.getGender());
             birthDetails.put("placeOfBirth", user.getPlaceOfBirth());
+            birthDetails.put("stateOfOrigin", user.getStateOfOrigin());
             birthDetails.put("fatherName", user.getFatherName());
             birthDetails.put("motherName", user.getMotherName());
             return ResponseEntity.ok(birthDetails);
