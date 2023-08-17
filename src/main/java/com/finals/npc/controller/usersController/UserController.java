@@ -129,6 +129,8 @@ public class UserController {
 
         String attestLg = request.getAttestLg();
 
+        String stateOfOrigin = request.getStateOfOrigin();
+
         // Generate random birth_id
         String attestId = randomNumberGenerator.generateRandomNumber(3);
         String attestationStatus = "pending";
@@ -141,6 +143,7 @@ public class UserController {
 //                attestAge,
                 attestDate,
                 attestLg,
+                stateOfOrigin,
                 attestId,
                 attestationStatus,
                 attestationByStaffStatus

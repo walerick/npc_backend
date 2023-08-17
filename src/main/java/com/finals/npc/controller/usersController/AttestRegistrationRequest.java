@@ -12,5 +12,6 @@ public class AttestRegistrationRequest {
     private int attestAge;
     private Date attestDate;
     private String attestLg;
+    private String stateOfOrigin;
     private String attestId;
 }

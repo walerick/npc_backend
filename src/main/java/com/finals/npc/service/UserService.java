@@ -116,6 +116,7 @@ public class UserService {
                                      String attestName,
                                      Date attestDate,
                                      String attestLg,
+                                     String stateOfOrigin,
                                      String attestId,
                                      String attestationStatus,
                                      String attestationByStaffStatus) {
@@ -127,6 +128,7 @@ public class UserService {
 //            user.setAttestAge(attestAge);
             user.setAttestDate(attestDate);
             user.setAttestLg(attestLg);
+            user.setStateOfOrigin(stateOfOrigin);
             user.setAttestId(attestId);
             user.setAttestationStatus(attestationStatus);
             user.setAttestByStaffStatus(attestationByStaffStatus);
