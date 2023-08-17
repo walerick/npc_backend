@@ -1,5 +1,6 @@
 package com.finals.npc.controller.registrarController;
 
+import com.finals.npc.model.RealRegistrar;
 import com.finals.npc.model.Registrar;
 import com.finals.npc.model.Users;
 import com.finals.npc.repository.UserRepo;
@@ -32,6 +33,11 @@ public class RegistrarController {
         registrarService.addNewRegistrar(registrar);
     }
 
+    @PostMapping("/register-registrar")
+    public void addNewRealRegistrar(@RequestBody RealRegistrar registrar){
+        registrarService.addNewRealRegistrar(registrar);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<RegistrarResponse> login(@RequestBody RegistrarRequest registrarRequest) {
         String username = registrarRequest.getUsername();
@@ -49,6 +55,25 @@ public class RegistrarController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
+
+//    REAL REGISTRAR LOGIN
+@PostMapping("/registrar-login")
+public ResponseEntity<RegistrarResponse> realRegisterLogin(@RequestBody RegistrarRequest registrarRequest) {
+    String username = registrarRequest.getUsername();
+    String password = registrarRequest.getPassword();
+
+    Optional<RealRegistrar> registrars = registrarService.getRealRegistrarByUsername(username);
+    if (registrars.isPresent()) {
+        RealRegistrar registrar = registrars.get();
+        if (registrar.getPassword().equals(password)) {
+            RegistrarResponse registrarResponse = new RegistrarResponse(registrar.getUsername(),
+                    registrar.getPassword());
+            System.out.println(registrarResponse);
+            return ResponseEntity.ok(registrarResponse);
+        }
+    }
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+}
 
 //    VIEW BIRTH REG REQUEST BY STAFF
     @GetMapping("/view-birth")
