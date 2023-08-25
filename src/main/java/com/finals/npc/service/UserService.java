@@ -44,6 +44,12 @@ public class UserService {
         return userRepository.findUsersByBirthId(birthId);
     }
 
+//    GET USER BY DEATH-ID
+    public Optional<Users> getUserByDeathId(String deathId){
+        return userRepository.findUsersByDeathId(deathId);
+    }
+
+
 //    GET USER BY ATTEST-ID
     public Optional<Users> getUserByAttestId(String attestId) {
         return userRepository.findUsersByAttestId(attestId);

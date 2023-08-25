@@ -8,5 +8,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<Users, Long> {
     Optional<Users> findUsersByNin(String nin) ;
     Optional<Users> findUsersByBirthId(String birthId);
+
+    Optional<Users> findUsersByDeathId(String deathId);
     Optional<Users> findUsersByAttestId(String attestId);
 }

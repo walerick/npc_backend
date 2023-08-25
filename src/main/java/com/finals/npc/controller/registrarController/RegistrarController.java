@@ -83,6 +83,29 @@ public ResponseEntity<RegistrarResponse> realRegisterLogin(@RequestBody Registra
         return usersStream.toList();
     }
 
+//    VIEW REGISTRARS BY ADMIN
+    @GetMapping("/view-admin")
+    public List<RealRegistrar> viewRegistrar(){
+        List<RealRegistrar> realRegistrars = registrarService.getRealRegistrar();
+        return  realRegistrars.stream().toList();
+    }
+
+    //    VIEW STAFF BY ADMIN
+    @GetMapping("/view-staff")
+    public List<Registrar> viewStaff(){
+        List<Registrar> realRegistrars = registrarService.getRegistrar();
+        return  realRegistrars.stream().toList();
+    }
+
+//    DELETE REGISTRAR BY ADMIN
+    @DeleteMapping("/delete-registrar/{id}")
+    public void deleteRegistrar(@PathVariable("id") Integer id){
+
+        registrarService.deleteRegistrar(id);
+    }
+
+
+
 //    APPROVE BIRTH REG REQUEST BY STAFF
     @PutMapping("/view-birth/approve/{nin}")
     public ResponseEntity<BasicResponse> approveBirth(@PathVariable("nin") String nin){

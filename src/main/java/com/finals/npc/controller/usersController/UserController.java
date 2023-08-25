@@ -243,6 +243,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/death-by-id")
+    public ResponseEntity<Map<String,Object>> getUserDeathCert(@RequestParam String deathId){
+        Optional<Users> usersOptional = userService.getUserByDeathId(deathId);
+        if (usersOptional.isPresent()){
+            Users user = usersOptional.get();
+            Map<String, Object> deathDetails = new HashMap<>();
+            deathDetails.put("deathName", user.getDeathName());
+            deathDetails.put("deathId", user.getDeathId());
+            return ResponseEntity.ok(deathDetails);
+        } else return ResponseEntity.notFound().build();
+
+    }
+
+
 
 
 

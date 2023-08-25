@@ -3,6 +3,7 @@ package com.finals.npc.service;
 import com.finals.npc.model.ExternalRegistrar;
 import com.finals.npc.model.RealRegistrar;
 import com.finals.npc.model.Registrar;
+import com.finals.npc.model.Users;
 import com.finals.npc.repository.ExternalRegistrarRepo;
 import com.finals.npc.repository.RealRegistrarRepo;
 import com.finals.npc.repository.RegistrarRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -28,6 +30,18 @@ public class RegistrarService {
         }
         registrarRepository.save(registrar);
     }
+
+    //GET ALL REGISTRAR
+    public List<RealRegistrar> getRealRegistrar() {
+        return realRegistrarRepo.findAll();
+    }
+
+    //GET ALL REGISTRAR
+    public List<Registrar> getRegistrar() {
+        return registrarRepository.findAll();
+    }
+
+
 
     public Optional<Registrar> getRegistrarByUsername (String username){
         return registrarRepository.findRegistrarByUsername(username);
@@ -47,9 +61,14 @@ public class RegistrarService {
         realRegistrarRepo.save(registrar);
     }
 
-        public Optional<RealRegistrar> getRealRegistrarByUsername (String username){
-            return realRegistrarRepo.findRegistrarByUsername(username);
-        }
+    //    DELETE REGISTRAR
+    public void deleteRegistrar(Integer id){
+        realRegistrarRepo.deleteById(id);
+    }
+
+    public Optional<RealRegistrar> getRealRegistrarByUsername (String username){
+        return realRegistrarRepo.findRegistrarByUsername(username);
+    }
 }
 
 
